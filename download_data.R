@@ -13,14 +13,14 @@ library(Gmisc)
 ##############
 
 # data directory
-folder_data <- pathJoin("..", "data")
+folder_data <- pathJoin("./", "data")
 folder_raw_data <- pathJoin(folder_data, "raw")
 # list diseaseCodes
 data('diseaseCodes', package = "TCGAutils")
 diseaseCodes
 # choose the code
-TCGA_CODE <- "PAAD"
-CANCER_CODE <- "PDAC"
+TCGA_CODE <- "BRCA"
+CANCER_CODE <- "BRCA"
 PLATFORM_CODE <- "TCGA"
 # check experiments
 curatedTCGAData(diseaseCode = TCGA_CODE, version = "2.0.1")
