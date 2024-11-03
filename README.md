@@ -56,7 +56,7 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
 
 ### Optimising NMF Feature selection
 The [first method](NMF/NMF_feature_selection.ipynb) for feature selection simply took the n features with most contribution per row (i.e., per component).\
-The [new feature selection method](NMF/NMF_feature_selection_optimised.ipynb) iterated through the components of the matrix H, selecting n number of top features, and each time dropping those features so that they cannot be selected again.
+The [new feature selection method](NMF/NMF_feature_selection_optimisation.ipynb) iterated through the components of the matrix H, selecting n number of top features, and each time dropping those features so that they cannot be selected again.
    
 
 
