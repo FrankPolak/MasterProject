@@ -54,9 +54,19 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
    Elbow method and variance explained. k can also be optimised by looking at scores of downstream DL models.\
    While creating plots for recosntruction error and variance by iteratively increasing ```n_components``` and re-running NMF() is too computationally expensive for the dataset and target number of components (~2000), the MSE for a 2000 component NMF was found to be **6.5448 e-07**.
 
-### Optimising NMF Feature selection
-The [first method](NMF/NMF_feature_selection.ipynb) for feature selection simply took the n features with most contribution per row (i.e., per component).\
-The [new feature selection method](NMF/NMF_feature_selection_optimisation.ipynb) iterated through the components of the matrix H, selecting n number of top features, and each time dropping those features so that they cannot be selected again.
+### Feature Selection
+[The First Method](NMF/NMF_feature_selection.ipynb):
+1. For each component get the top 2 features with the highest value
+2. remove duplicate features
+
+[The Optimised Method](NMF/NMF_feature_selection_optimisation.ipynb):
+1. Sort the components based on their max. value
+2. For each sorted component select the feature with the highest value
+3. Drop the feature
+4. Repeat for each column (component)
+5. Repeat twice (or f_per_component times)
+
+All features selected by the first method overlapped with the optimised method. The optimised method selected an additional 47 features.
    
 
 
