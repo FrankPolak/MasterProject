@@ -66,7 +66,9 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
 4. Repeat for each column (component)
 5. Repeat twice (or f_per_component times)
 
-All features selected by the first method overlapped with the optimised method. The optimised method selected an additional 47 features.
+All features selected by the first method overlapped with the optimised method. The optimised method selected an additional 47 features.\
+![Venn diagram of feature selection methods](Figures/Feature_selection_methods_venn.png)
+
    
 
 
