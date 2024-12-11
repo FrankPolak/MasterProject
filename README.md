@@ -6,6 +6,7 @@
 3. [Feature Selection](#feature-selection)
       - [Methods](#methods)
       - [Results](#results)
+4. [Data Integration](#data-integration)
   
 <hr>
 
@@ -130,6 +131,14 @@ After performing Sparse PCA on both datasets, the explained variances were:
    * DNA Methylation: **1476 selected features**
   
 <hr>
+
+### Data Integration
+[*Data integration script*](Data_Integration.ipynb)\
+\
+Following feature selection from the RNA-seq and DNA methylation datasets, the original datasets were edited to retain only the chosen features and the samples shared between both datasets. These refined datasets were then optimised and prepared for training the autoencoder.\
+The final datasets look as follows:
+* RNA-seq: **1630 features, 511 samples**
+* DNA Methylation: **1476 features, 511 samples**
 
 
 
