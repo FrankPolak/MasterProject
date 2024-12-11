@@ -72,11 +72,11 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
 
 ### Feature Selection
 #### Methods:
-1.	Top Features Contributing to NMF components.\
-   \
-   [*Method 1 Script*](Feature_Selection/Method_1.py)\
-  	\
-   In this method, the top 8 RNA-seq and top 10 DNA Methylation features per component were extracted. Duplicates were removed.
+**1. Top Features Contributing to NMF components.**\
+\
+[*Method 1 Script*](Feature_Selection/Method_1.py)\
+\
+In this method, the top 8 RNA-seq and top 10 DNA Methylation features per component were extracted. Duplicates were removed.
 ```
 For each component: 
    get the top num_top_features features with the highest value
@@ -84,10 +84,11 @@ For each component:
 
 Sort top_features and remove duplicates
 ```
-2. Top Feature (iterative)\
-   \
-   [*Method 2 Script*](Feature_Selection/Method_2.py)\
-  	\
+\
+**2. Top Feature (iterative)**\
+\
+[*Method 2 Script*](Feature_Selection/Method_2.py)\
+\
 The feature with the highest contribution was selected and removed. This was repeated until 2000 features were selected.\
 ```
 For n in f_per_component:
@@ -98,27 +99,32 @@ For n in f_per_component:
       Append the feature index and its value to the selected_features dictionary 
       Drop the current feature
 ```
-3. Laplacian Score\
-   \
-   [*Laplacian Score Script*](Feature_Selection/LS.py)\
-  	\
-   The Laplacian score is a feature selection method that evaluates the relevance of each feature based on its locality-preserving properties. It emphasizes features that maintain the intrinsic structure of the data.\
-   To determine the optimal number of neighbors (n_neighbors) for the Laplacian score calculation, a plot of n_neighbors versus the average Laplacian score was analyzed. This helped identify the point at which the score was maximized without overfitting.\
-      ![Laplacian Score n_neighbours graph](Figures/LS_feature_selection.png)\
+\
+**3. Laplacian Score**\
+\
+[*Laplacian Score Script*](Feature_Selection/LS.py)\
+\
+The Laplacian score is a feature selection method that evaluates the relevance of each feature based on its locality-preserving properties. It emphasizes features that maintain the intrinsic structure of the data.\
+To determine the optimal number of neighbors (n_neighbors) for the Laplacian score calculation, a plot of n_neighbors versus the average Laplacian score was analyzed. This helped identify the point at which the score was maximized without overfitting.\
+![Laplacian Score n_neighbours graph](Figures/LS_feature_selection.png)\
 **Selected n_neighbors: 10**
-4. Forward Iterative Laplacian Score Algorithm\
-   \
-   [*FILS Script*](Feature_Selection/FILS.py)\
-  	\
-   An algorithm that iteratively selects and removes the feature with the highest Laplacian score.\
-   [*Skipped due to runtime complexity*]
-5. Sparse PCA\
-   \
-   [*Sparse PCA Script*](Feature_Selection/Sparse_PCA.py)\
-  	\
-   Sparse PCA is a dimensionality reduction technique that balances data compression with feature sparsity. The first step involved determining the optimal number of components (```n_components```) by analysing its influence on the explained variance ratio. A graph was used to illustrate the relationship between the number of components and the percentage of variance explained.\
-   ![Sparse PCA analysis](Figures/SPCA_feature_selection.png)\
-   From the graph, **n_components = 1000** was selected as it explained over 80% of the variance while maintaining computational efficiency. This choice ensures a balance between retaining significant information and optimising runtime.\
+\
+\
+**4. Forward Iterative Laplacian Score Algorithm**\
+\
+[*FILS Script*](Feature_Selection/FILS.py)\
+\
+An algorithm that iteratively selects and removes the feature with the highest Laplacian score.\
+[*Skipped due to runtime complexity*]
+\
+\
+**5. Sparse PCA**\
+\
+[*Sparse PCA Script*](Feature_Selection/Sparse_PCA.py)\
+\
+Sparse PCA is a dimensionality reduction technique that balances data compression with feature sparsity. The first step involved determining the optimal number of components (```n_components```) by analysing its influence on the explained variance ratio. A graph was used to illustrate the relationship between the number of components and the percentage of variance explained.\
+![Sparse PCA analysis](Figures/SPCA_feature_selection.png)\
+From the graph, **n_components = 1000** was selected as it explained over 80% of the variance while maintaining computational efficiency. This choice ensures a balance between retaining significant information and optimising runtime.\
 After performing Sparse PCA on both datasets, the explained variances were:
    * DNA Methylation: **87.13%**
    * RNA-seq: **88.41%**
