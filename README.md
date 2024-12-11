@@ -85,6 +85,41 @@ For n in f_per_component:
 4. Forward Iterative Laplacian Score Algorithm\
    An algorithm that iteratively selects and removes the feature with the highest Laplacian score.\
    [*Skipped due to runtime complexity*]
+5. Sparse PCA
+   Sparse PCA is a dimensionality reduction technique that balances data compression with feature sparsity. The first step involved determining the optimal number of components (```n_components```) by analysing its influence on the explained variance ratio. A graph was used to illustrate the relationship between the number of components and the percentage of variance explained.\
+   ![Sparse PCA analysis](Figures/SPCA_feature_selection.png)\
+   From the graph, **n_components = 1000** was selected as it explained over 80% of the variance while maintaining computational efficiency. This choice ensures a balance between retaining significant information and optimising runtime.\
+After performing Sparse PCA on both datasets, the explained variances were:
+   * DNA Methylation: **87.13%**
+   * RNA-seq: **88.41%**
+
+#### Results:   
+1. Number of Features Selected
+   | Method               | RNA-seq | DNA Methylation |
+   |-----------------------|---------|-----------------|
+   | Top Features NMF     | 1502    | 1260            |
+   | NMF Iterative        | 2000    | 2000            |
+   | Laplacian Score      | 2000    | 2000            |
+   | Sparse PCA           | 2032    | 2000            |
+
+2. Commonly Selected Features
+   ![Venn Feature Selection](Figures/Venn_feature_selection.png)
+   | Features Common In: | RNA-seq | DNA Methylation |
+   |----------------------|---------|-----------------|
+   | 4 sets (all)         | 612     | 431             |
+   | 3 sets               | 1018    | 1045            |
+   | 2 sets               | 681     | 908             |
+   | Single set           | 670     | 585             |
+
+   Based on these results, the final set of features selected for training the deep learning model were the features common in 3 or more sets.
+   * RNA-seq: **1630 selected features**
+   * DNA Methylation: **1476 selected features**
+
+
+
+
+
+
 
    
 
