@@ -64,6 +64,7 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
 For each component: 
    get the top num_top_features features with the highest value
    Append the features to a the top_features list
+
 Sort top_features and remove duplicates
 ```
 2. Top Feature (iterative)\
