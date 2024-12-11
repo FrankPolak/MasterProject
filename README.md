@@ -118,12 +118,12 @@ After performing Sparse PCA on both datasets, the explained variances were:
 
 2. Commonly Selected Features
    ![Venn Feature Selection](Figures/Venn_feature_selection.png)
-   | Features Common In: | RNA-seq | DNA Methylation |
+   | Features Common to: | RNA-seq | DNA Methylation |
    |----------------------|---------|-----------------|
    | 4 sets (all)         | 612     | 431             |
    | 3 sets               | 1018    | 1045            |
    | 2 sets               | 681     | 908             |
-   | Single set           | 670     | 585             |
+   | Single sets only     | 670     | 585             |
 
    Based on these results, the final set of features selected for training the deep learning model were the features common in 3 or more sets.
    * RNA-seq: **1630 selected features**
