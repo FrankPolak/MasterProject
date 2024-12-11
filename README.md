@@ -6,6 +6,8 @@
 3. [Feature Selection](#feature-selection)
       - [Methods](#methods)
       - [Results](#results)
+  
+<hr>
 
 ### Downloading Data
 The **Breast invasive carcinoma** database from TCGA was chosen using the code 'BRCA'.
@@ -41,6 +43,8 @@ Datasets 2 and 5 were selected for future model training.
 ##### Train-Test Split
 The data was split using a 60:40 proportion. The training and testing sets of patients were stored as a csv file (data/raw/patients_BRCATCGA.csv).
 
+<hr>
+
 ### NMF Optimisation
 1. Normalisation\
    The matrix of expression was normalised to allow for more interpretable and comparable results (MSE).
@@ -62,6 +66,8 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
 
    ![DNA Methylation elbow plot](Figures/DNAMethylation_MSE_elbow_plot.png)\
    **Selected number of components: 200**
+
+<hr>
 
 ### Feature Selection
 #### Methods:
@@ -122,6 +128,8 @@ After performing Sparse PCA on both datasets, the explained variances were:
    Based on these results, the final set of features selected for training the deep learning model were the features common in 3 or more sets.
    * RNA-seq: **1630 selected features**
    * DNA Methylation: **1476 selected features**
+  
+<hr>
 
 
 
