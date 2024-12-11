@@ -49,26 +49,42 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
    While the reconstruction error is higher for mu, the convergence speed and increased stability make it the preffered solver. Reconstruction error can later be minimised by adjusting the ```max_iter``` and ```n_components``` parameters of the NMF() function.
    
 3. Optimising the Number of Components\
-   Different values of ```n_components``` were tested, and the resulting mean squared error (MSE) was plotted. The resulting elbow plots were analysed to determine the optimal number of components to use. This optimal value balances minimising the MSE while avoiding overfitting.
-   ![RNA seq elbow plot](Figures/RNAseq_MSE_elbow_plot.png)
+   Different values of ```n_components``` were tested, and the resulting mean squared error (MSE) was plotted. The resulting elbow plots were analysed to determine the optimal number of components to use. This optimal value balances minimising the MSE while avoiding overfitting.\
+   ![RNA seq elbow plot](Figures/RNAseq_MSE_elbow_plot.png)\
    **Selected number of components: 250**
-   ![DNA Methylation elbow plot](Figures/DNAMethylation_MSE_elbow_plot.png)
+
+   ![DNA Methylation elbow plot](Figures/DNAMethylation_MSE_elbow_plot.png)\
    **Selected number of components: 200**
 
 ### Feature Selection
-[The First Method](NMF/NMF_feature_selection.ipynb):
-1. For each component get the top 2 features with the highest value
-2. remove duplicate features
-
-[The Optimised Method](NMF/NMF_feature_selection_optimisation.ipynb):
-1. Sort the components based on their max. value
-2. For each sorted component select the feature with the highest value
-3. Drop the feature
-4. Repeat for each column (component)
-5. Repeat twice (or f_per_component times)
-
-All features selected by the first method overlapped with the optimised method. The optimised method selected an additional 47 features.\
-![Venn diagram of feature selection methods](Figures/Feature_selection_methods_venn.png)
+#### Methods:
+1.	Top Features Contributing to NMF components.\
+   In this method, the top 8 RNA-seq and top 10 DNA Methylation features per component were extracted. Duplicates were removed.
+```
+For each component: 
+   get the top num_top_features features with the highest value
+   Append the features to a the top_features list
+Sort top_features and remove duplicates
+```
+2. Top Feature (iterative)\
+The feature with the highest contribution was selected and removed. This was repeated until 2000 features were selected.\
+```
+For n in f_per_component:
+   Sort the components based on their max. Value
+   For each sorted component:
+      Append component index to components list
+      Select the top feature
+      Append the feature index and its value to the selected_features dictionary 
+      Drop the current feature
+```
+3. Laplacian Score\
+   The Laplacian score is a feature selection method that evaluates the relevance of each feature based on its locality-preserving properties. It emphasizes features that maintain the intrinsic structure of the data.\
+   To determine the optimal number of neighbors (n_neighbors) for the Laplacian score calculation, a plot of n_neighbors versus the average Laplacian score was analyzed. This helped identify the point at which the score was maximized without overfitting.\
+      ![Laplacian Score n_neighbours graph](Figures/LS_feature_selection.png)\
+**Selected n_neighbors: 10**
+4. Forward Iterative Laplacian Score Algorithm\
+   An algorithm that iteratively selects and removes the feature with the highest Laplacian score.\
+   [*Skipped due to runtime complexity*]
 
    
 
