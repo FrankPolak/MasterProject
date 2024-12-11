@@ -37,9 +37,7 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
 ### NMF Optimisation
 1. Normalisation\
    The matrix of expression was normalised to allow for more interpretable and comparable results (MSE).
-2. Sparsity\
-   Matrix not sparce (<14.39% of values == 0)
-3. Choosing the Right Solver\
+2. Choosing the Right Solver\
    Coordinate descent (cd) vs Multiplicative update (mu)\
    (all other parameters kept constant)
    
@@ -50,9 +48,12 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
 
    While the reconstruction error is higher for mu, the convergence speed and increased stability make it the preffered solver. Reconstruction error can later be minimised by adjusting the ```max_iter``` and ```n_components``` parameters of the NMF() function.
    
-4. Optimising the Number of Components\
-   Elbow method and variance explained. k can also be optimised by looking at scores of downstream DL models.\
-   While creating plots for recosntruction error and variance by iteratively increasing ```n_components``` and re-running NMF() is too computationally expensive for the dataset and target number of components (~2000), the MSE for a 2000 component NMF was found to be **6.5448 e-07**.
+3. Optimising the Number of Components\
+   Different values of ```n_components``` were tested, and the resulting mean squared error (MSE) was plotted. The resulting elbow plots were analysed to determine the optimal number of components to use. This optimal value balances minimising the MSE while avoiding overfitting.
+   ![RNA seq elbow plot](Figures/RNAseq_MSE_elbow_plot.png)
+   **Selected number of components: 250**
+   ![DNA Methylation elbow plot](Figures/DNAMethylation_MSE_elbow_plot.png)
+   **Selected number of components: 200**
 
 ### Feature Selection
 [The First Method](NMF/NMF_feature_selection.ipynb):
