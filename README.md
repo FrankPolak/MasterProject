@@ -1,5 +1,12 @@
 # MasterProject
 
+### Index
+1. [Downloading Data](#downloading-data)
+2. [NMF Optimisation](#nmf-optimisation)
+3. [Feature Selection](#feature-selection)
+      - [Methods](#methods)
+      - [Results](#results)
+
 ### Downloading Data
 The **Breast invasive carcinoma** database from TCGA was chosen using the code 'BRCA'.
 The data was downloaded using the ```curatedTCGAData()``` function.\
@@ -31,7 +38,7 @@ The following figure is an UpSet plot showing the intersection of samples in the
 ```cancer_data``` was exported as an RDS file (data/raw/rnaseqnorm_meth_rppa_mirna_BRCATCGA.rds).\
 Datasets 2 and 5 were selected for future model training.
 
-### Train-Test Split
+##### Train-Test Split
 The data was split using a 60:40 proportion. The training and testing sets of patients were stored as a csv file (data/raw/patients_BRCATCGA.csv).
 
 ### NMF Optimisation
