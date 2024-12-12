@@ -89,7 +89,7 @@ Sort top_features and remove duplicates
 \
 [*Method 2 Script*](Feature_Selection/Method_2.py)\
 \
-The feature with the highest contribution was selected and removed. This was repeated until 2000 features were selected.\
+The feature with the highest contribution was selected and removed. This was repeated until 2000 features were selected.
 ```
 For n in f_per_component:
    Sort the components based on their max. Value
