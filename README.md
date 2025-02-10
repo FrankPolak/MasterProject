@@ -188,8 +188,8 @@ The model uses an L1 loss function, i.e., the mean absolute error (MAE) for acce
 | Test Loss    | 0.17   | 0.17   |
 
 <p align="left">
-    <img src="model_V0.png" alt="Model V0" width="45%">
-    <img src="model_V1.png" alt="Model V1" width="45%">
+    <img src="Figures/model_V0.png" alt="Model V0" width="45%">
+    <img src="Figures/model_V1.png" alt="Model V1" width="45%">
 </p>
 
 
