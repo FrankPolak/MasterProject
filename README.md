@@ -192,6 +192,28 @@ The model uses an L1 loss function, i.e., the mean absolute error (MAE) for acce
     <img src="Figures/model_V1.png" alt="Model V1" width="45%">
 </p>
 
+#### Optimizer Comparison
+
+Model V0 was used to compare four different optimizers - Adam, SGD, RMSprop, and Adagrad. All other hyperparameters were kept constant (lr = 0.001, 800 epochs) apart from SGD which required an increase in both learning rate and number of epochs to converge (lr = 0.01, 10'000 epochs). Below we can see the loss vs epochs graphs and a table to summarise the minimum loss achieved.
+
+<p align="left">
+    <img src="Figures/v0_Adam.png" alt="Adam" width="45%">
+    <img src="Figures/v0_SGD.png" alt="SGD" width="45%">
+</p>
+<p align="left">
+    <img src="Figures/v0_RMSprop.png" alt="RMSprop" width="45%">
+    <img src="Figures/v0_Adagrad.png" alt="Adagrad" width="45%">
+</p>
+
+|  | Adam | SGD | RMSprop | Adagrad |
+|----------|----------|----------|----------|----------|
+| Train Loss    | 0.144   | 0.230   | 0.241   | 0.186   |
+| Test Loss    | 0.174   | 0.223   | 0.232  |  0.186  |
+
+From these results we can see that despite the slight overfitting towards the end of training, the **Adam** optimizer performs best and most efficiently. As such, the Adam optimizer will be used in the final model.
+
+
+
 
 
 
