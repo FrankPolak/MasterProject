@@ -7,6 +7,7 @@
       - [Methods](#methods)
       - [Results](#results)
 4. [Data Integration](#data-integration)
+5. [Autoencoder Development](#autoencoder-development)
   
 <hr>
 
@@ -160,6 +161,40 @@ Following feature selection from the RNA-seq and DNA methylation datasets, the o
 The final datasets look as follows:
 * RNA-seq: **1630 features, 511 samples**
 * DNA Methylation: **1476 features, 511 samples**
+
+<hr>
+
+### Autoencoder Development
+
+The next step was to develop a neiral network-based autoencoder model that will take the selected features for both datasets and further reduce their size by creating a latent space representation of the data. This latent space representation is developed by the deep learning algorithm and its accuracy can be assessed by the model's accuracy in reproducing the original data. The autoencoder was developed using PyTorch.
+
+Autoencoder development requires a hyperparameter optimisation step. The hyperparameters adjusted for optimisation include:
+
+1. The number of neurons in the latent space
+2. Number of epochs for training
+3. Optimiser and learning rate
+
+The model uses an L1 loss function, i.e., the mean absolute error (MAE) for accessing the models reproducing capacity. 
+
+#### Version 0 and 1
+
+|  | Model V0 | Model V1 |
+|----------|----------|----------|
+| Neurons in Latent Space   | 125   | 250   |
+| Number of Epochs    | 800   | 800   |
+| Optimizer    | Adam   | Adam   |
+| Learning Rate    | 0.001   | 0.001   |
+| Train Loss    | 0.13   | 0.12   |
+| Test Loss    | 0.17   | 0.17   |
+
+<p align="left">
+    <img src="model_V0.png" alt="Model V0" width="45%">
+    <img src="model_V1.png" alt="Model V1" width="45%">
+</p>
+
+
+
+
 
 
 
