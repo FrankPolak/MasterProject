@@ -202,6 +202,7 @@ As expected, the training loss continues to decrease as the number of epochs in 
 Model V0 was used to compare four different optimizers - Adam, SGD, RMSprop, and Adagrad. All other hyperparameters were kept constant (lr = 0.001, 800 epochs) apart from SGD which required an increase in both learning rate and number of epochs to converge (lr = 0.01, 10'000 epochs). Below we can see the loss vs epochs graphs and a table to summarise the minimum loss achieved.
 
 ![Optimizer Comparison](Figures/v0_optimizers.png)
+![SGD](Figures/v0_SGD.png)
 
 |  | Adam | SGD | RMSprop | Adagrad |
 |----------|----------|----------|----------|----------|
