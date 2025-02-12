@@ -8,10 +8,11 @@
       - [Results](#results)
 4. [Data Integration](#data-integration)
 5. [Autoencoder Development](#autoencoder-development)
+      - [Hyperparameter Optimisation](#hyperparameter-optimisation)  
   
 <hr>
 
-### Downloading Data
+## Downloading Data
 The **Breast invasive carcinoma** database from TCGA was chosen using the code 'BRCA'.
 The data was downloaded using the ```curatedTCGAData()``` function.\
 The data was filtered to include only primary tumour samples and stored as a MultiAssayExperiment object called ```cancer_data```.\
@@ -42,12 +43,12 @@ The following figure is an UpSet plot showing the intersection of samples in the
 ```cancer_data``` was exported as an RDS file (data/raw/rnaseqnorm_meth_rppa_mirna_BRCATCGA.rds).\
 Datasets 2 and 5 were selected for future model training.
 
-##### Train-Test Split
+#### Train-Test Split
 The data was split using a 60:40 proportion. The training and testing sets of patients were stored as a csv file (data/raw/patients_BRCATCGA.csv).
 
 <hr>
 
-### NMF Optimisation
+## NMF Optimisation
 1. Normalisation\
    The matrix of expression was normalised to allow for more interpretable and comparable results (MSE).
 2. Choosing the Right Solver\
@@ -71,8 +72,8 @@ The data was split using a 60:40 proportion. The training and testing sets of pa
 
 <hr>
 
-### Feature Selection
-#### Methods:
+## Feature Selection
+### Methods:
 **1. Top Features Contributing to NMF components.**\
 \
 [*Method 1 Script*](Feature_Selection/Method_1.py)\
@@ -130,7 +131,7 @@ After performing Sparse PCA on both datasets, the explained variances were:
    * DNA Methylation: **87.13%**
    * RNA-seq: **88.41%**
 
-#### Results:   
+### Results:   
 1. Number of Features Selected
    | Method               | RNA-seq | DNA Methylation |
    |-----------------------|---------|-----------------|
@@ -154,7 +155,7 @@ After performing Sparse PCA on both datasets, the explained variances were:
   
 <hr>
 
-### Data Integration
+## Data Integration
 [*Data integration script*](Data_Integration.ipynb)\
 \
 Following feature selection from the RNA-seq and DNA methylation datasets, the original datasets were edited to retain only the chosen features and the samples shared between both datasets. These refined datasets were then optimised and prepared for training the autoencoder.\
@@ -164,46 +165,41 @@ The final datasets look as follows:
 
 <hr>
 
-### Autoencoder Development
+## Autoencoder Development
 
 The next step was to develop a neiral network-based autoencoder model that will take the selected features for both datasets and further reduce their size by creating a latent space representation of the data. This latent space representation is developed by the deep learning algorithm and its accuracy can be assessed by the model's accuracy in reproducing the original data. The autoencoder was developed using PyTorch.
 
+### Hyperparameter Optimisation
+
 Autoencoder development requires a hyperparameter optimisation step. The hyperparameters adjusted for optimisation include:
 
-1. The number of neurons in the latent space
-2. Number of epochs for training
-3. Optimiser and learning rate
+1. Number of epochs for training
+2. Optimiser and learning rate
+3. The number of neurons in the latent space
 
 The model uses an L1 loss function, i.e., the mean absolute error (MAE) for accessing the models reproducing capacity. 
 
-#### Version 0 and 1
+#### Version 0 and 1 - Epochs
+
+Two models (version 0 and 1) were developed with the fallowing hyperparameters to examine the effect that increasing the number of epochs has on the train and test loss as well as overfitting. 
 
 |  | Model V0 | Model V1 |
 |----------|----------|----------|
 | Neurons in Latent Space   | 125   | 250   |
-| Number of Epochs    | 800   | 800   |
 | Optimizer    | Adam   | Adam   |
 | Learning Rate    | 0.001   | 0.001   |
-| Train Loss    | 0.13   | 0.12   |
-| Test Loss    | 0.17   | 0.17   |
+| Final Train Loss    | 0.13   | 0.12   |
+| Final Test Loss    | 0.17   | 0.17   |
 
-<p align="left">
-    <img src="Figures/model_V0.png" alt="Model V0" width="45%">
-    <img src="Figures/model_V1.png" alt="Model V1" width="45%">
-</p>
+![Epochs effect](Figures/v0_v1_epochs.png)
+
+As expected, the training loss continues to decrease as the number of epochs in the training loop increases, however, test loss flatlines at around 250 epochs. This marks the divergence of the train and test loss trends and the begining of overfitting of the model. To prevent overfitting and to optimise efficiency, **250 epochs** have been selected for subsequent training. 
 
 #### Optimizer Comparison
 
 Model V0 was used to compare four different optimizers - Adam, SGD, RMSprop, and Adagrad. All other hyperparameters were kept constant (lr = 0.001, 800 epochs) apart from SGD which required an increase in both learning rate and number of epochs to converge (lr = 0.01, 10'000 epochs). Below we can see the loss vs epochs graphs and a table to summarise the minimum loss achieved.
 
-<p align="left">
-    <img src="Figures/v0_Adam.png" alt="Adam" width="45%">
-    <img src="Figures/v0_SGD.png" alt="SGD" width="45%">
-</p>
-<p align="left">
-    <img src="Figures/v0_RMSprop.png" alt="RMSprop" width="45%">
-    <img src="Figures/v0_Adagrad.png" alt="Adagrad" width="45%">
-</p>
+![Optimizer Comparison](Figures/v0_optimizers.png)
 
 |  | Adam | SGD | RMSprop | Adagrad |
 |----------|----------|----------|----------|----------|
@@ -211,6 +207,11 @@ Model V0 was used to compare four different optimizers - Adam, SGD, RMSprop, and
 | Test Loss    | 0.174   | 0.223   | 0.232  |  0.186  |
 
 From these results we can see that despite the slight overfitting towards the end of training, the **Adam** optimizer performs best and most efficiently. As such, the Adam optimizer will be used in the final model.
+
+#### The Number of Neurons in the Latent Space
+
+![Loss vs Hidden Units](Figures/loss_vs_hidden_units.png)
+
 
 
 
