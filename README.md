@@ -206,8 +206,8 @@ Model V0 was used to compare four different optimizers - Adam, SGD, RMSprop, and
 
 |  | Adam | SGD | RMSprop | Adagrad |
 |----------|----------|----------|----------|----------|
-| Train Loss    | 0.144   | 0.230   | 0.241   | 0.186   |
-| Test Loss    | 0.174   | 0.223   | 0.232  |  0.186  |
+| Train Loss    | 0.172   | 0.230   | 0.196   | 0.191   |
+| Test Loss    | 0.176   | 0.223   | 0.203  |  0.189  |
 
 From these results we can see that despite the slight overfitting towards the end of training, the **Adam** optimizer performs best and most efficiently. As such, the Adam optimizer will be used in the final model.
 
