@@ -163,13 +163,13 @@ The final datasets look as follows:
 * DNA Methylation: **2000 features, 511 samples**
 
 The data integration steps can be seen here: 
-[*Data integration script*](feature_selection_final.ipynb)
+[*Data integration script*](Feature_Selection.ipynb)
 
 <hr>
 
 ## Autoencoder Development
 
-The next step was to develop a neiral network-based autoencoder model that will take the selected features for both datasets and further reduce their size by creating a latent space representation of the data. This latent space representation is developed by the deep learning algorithm and its accuracy can be assessed by the model's accuracy in reproducing the original data. The autoencoder was developed using PyTorch.
+The next step was to develop a neiral network-based autoencoder model that will take the selected features for both datasets and further reduce their size by creating a latent space representation of the data. This latent space representation is developed by the deep learning algorithm and its representative capacity can be assessed by the model's accuracy in reproducing the original data. The autoencoder was developed using PyTorch.
 
 ### Hyperparameter Optimisation
 
@@ -179,37 +179,36 @@ Autoencoder development requires a hyperparameter optimisation step. The hyperpa
 2. Optimiser and learning rate
 3. The number of neurons in the latent space
 
-The model uses an L1 loss function, i.e., the mean absolute error (MAE) for accessing the models reproducing capacity. 
+The model uses an L2 loss function, i.e., the mean squared error (MSE) for accessing the models reproducing capacity. The training and testing data includes both RNA-seq and DNA methylation data. In order to prevent any one modality from affecting the model more than the other, the values in the datasets were normalised before merging usking SciKitLearn's ```minMaxScaler()``` scaler that puts the data into a range between 0 and 1. 
 
-#### Version 0 and 1 - Epochs
+#### Models 0 and 1 - Epochs
 
 Two models (version 0 and 1) were developed with the fallowing hyperparameters to examine the effect that increasing the number of epochs has on the train and test loss as well as overfitting. 
 
-|  | Model V0 | Model V1 |
+|  | Model V1 | Model V0 |
 |----------|----------|----------|
 | Neurons in Latent Space   | 125   | 250   |
 | Optimizer    | Adam   | Adam   |
 | Learning Rate    | 0.001   | 0.001   |
-| Final Train Loss    | 0.13   | 0.12   |
-| Final Test Loss    | 0.17   | 0.17   |
+| Final Train Loss    | 0.025   | 0.026   |
+| Final Test Loss    | 0.045   | 0.045   |
 
-![Epochs effect](Figures/v0_v1_epochs.png)
+![Epochs effect](Figures/epochs.png)
 
-As expected, the training loss continues to decrease as the number of epochs in the training loop increases, however, test loss flatlines at around 250 epochs. This marks the divergence of the train and test loss trends and the begining of overfitting of the model. To prevent overfitting and to optimise efficiency, **250 epochs** have been selected for subsequent training. 
+As expected, the training loss continues to decrease as the number of epochs in the training loop increases, however, test loss flatlines at around 1000 epochs. This marks a more rapid divergence of the train and test loss trends and the begining of overfitting of the model. To prevent overfitting and to optimise efficiency, **1000 epochs** have been selected for subsequent training. 
 
 #### Optimizer Comparison
 
-Model V0 was used to compare four different optimizers - Adam, SGD, RMSprop, and Adagrad. All other hyperparameters were kept constant (lr = 0.001, 800 epochs) apart from SGD which required an increase in both learning rate and number of epochs to converge (lr = 0.01, 10'000 epochs). Below we can see the loss vs epochs graphs and a table to summarise the minimum loss achieved.
+Model V1 was used to compare four different optimizers - Adam, RMSprop, and Adagrad. All other hyperparameters were kept constant (lr = 0.00001, 1000 epochs). Below we can see the loss vs epochs graphs and a table to summarise the minimum loss achieved.
 
-![Optimizer Comparison](Figures/v0_optimizers.png)
-![SGD](Figures/v0_SGD.png)
+![Optimizer Comparison](Figures/optimizers.png)
 
-|  | Adam | SGD | RMSprop | Adagrad |
-|----------|----------|----------|----------|----------|
-| Train Loss    | 0.172   | 0.230   | 0.196   | 0.191   |
-| Test Loss    | 0.176   | 0.223   | 0.203  |  0.189  |
+|  | Adam | RMSprop | Adagrad |
+|----------|----------|----------|----------|
+| Train Loss    | 0.038   | 0.041   | 0.067   |
+| Test Loss    | 0.044   | 0.046  |  0.070  |
 
-From these results we can see that despite the slight overfitting towards the end of training, the **Adam** optimizer performs best and most efficiently. As such, the Adam optimizer will be used in the final model.
+Although the Adam optimiser achieved the lowest loss score, the RMSprop optimiser showed the highest efficiency in reducing the loss in the least amount of epochs. As such, the **RMSprop** optimiser was used in subsequent raining, with the optimal number of epochs in training set to **400 epochs**.
 
 #### The Number of Neurons in the Latent Space
 
