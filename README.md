@@ -8,7 +8,9 @@
       - [Results](#results)
 4. [Data Integration](#data-integration)
 5. [Autoencoder Development](#autoencoder-development)
-      - [Hyperparameter Optimisation](#hyperparameter-optimisation)  
+      - [Hyperparameter Optimisation](#hyperparameter-optimisation)
+      - [Final Model Hyperparameters](#final-model-hyperparameters)
+6. [K-Means Clustering](#k-means-clustering)
   
 <hr>
 
@@ -213,6 +215,35 @@ Although the Adam optimiser achieved the lowest loss score, the RMSprop optimise
 #### The Number of Neurons in the Latent Space
 
 ![Loss vs Hidden Units](Figures/loss_vs_hidden_units.png)
+
+### Final Model Hyperparameters
+
+| | model v0 |
+|----------|----------|
+| Neurons in Latent Space    | 200   |
+| Epochs in Training    | 400   |
+| Optimizer    | RMSprop   |
+| Learning rate    | 0.00001   |
+| Loss Function    | MSE (L2 loss)   |
+
+<hr>
+
+## K-Means Clustering
+
+The model built in the previous step facilitated the encoding of the original data into a latent space respresentation, reduced to just 200 features per sample. A k-means algorithm has been applied to determine sample clusters. This is an unsupervised learning method which allows for the algorithm itself to determine the optimal clusters.
+
+The optimal number of clusters into which the data was to be divided was determined using the elobow method, both by plotting the number of clusters and the corresponding WCSS (within-cluster sum of squares) and by applying the ```KneeLocator()``` function of the kneed package.
+
+![k-means elbow plot](Figures/k-means_elbow_plot.png)
+
+From the plot we can see that the optimal number of clusters is around 5. This is further confirmed by the ```KneeLocator()``` fucntion. As such the final k-means model will separate the data into **5 clusters**.
+
+In order to visualise the data, a UMAP embedding was created. The K-means algorithm has been applied and the data has been colour-coded into the 5 resulting clusters. 
+
+![k-means umap](Figures/k-means_UMAP.png)
+
+The data has also been visualised in 3 dimensions and an interactive figure can be found within the [k-means clustering notebook](Model/k-means_clustering.ipynb)
+
 
 
 
