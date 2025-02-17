@@ -242,7 +242,7 @@ In order to visualise the data, a UMAP embedding was created. The K-means algori
 
 ![k-means umap](Figures/k-means_UMAP.png)
 
-The data has also been visualised in 3 dimensions and an interactive figure can be found within the [k-means clustering notebook](Model/k-means_clustering.ipynb)
+The data has also been visualised in 3 dimensions and an interactive figure can be found within the [k-means clustering notebook](Autoencoder/k-means_clustering.ipynb)
 
 
 
