@@ -183,6 +183,8 @@ Autoencoder development requires a hyperparameter optimisation step. The hyperpa
 
 The model uses an L2 loss function, i.e., the mean squared error (MSE) for accessing the models reproducing capacity. The training and testing data includes both RNA-seq and DNA methylation data. In order to prevent any one modality from affecting the model more than the other, the values in the datasets were normalised before merging usking SciKitLearn's ```minMaxScaler()``` scaler that puts the data into a range between 0 and 1. 
 
+[Hyperparameter Optimisation Notebook](#Autoencoder/Hyperparameter_Optimisation.ipynb)
+
 #### Models 0 and 1 - Epochs
 
 Two models (version 0 and 1) were developed with the fallowing hyperparameters to examine the effect that increasing the number of epochs has on the train and test loss as well as overfitting. 
