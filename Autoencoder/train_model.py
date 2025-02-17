@@ -1,4 +1,5 @@
 import torch
+from torch import nn
 
 def train_autoencoder(model: torch.nn.Module,
                       loss_fn: torch.nn.Module,
