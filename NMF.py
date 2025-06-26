@@ -47,5 +47,5 @@ def perform_nmf(input_file, output_file, num_comp):
 
 if __name__ == "__main__":
     
-    error_rna_seq = perform_nmf('Data/preprocessed_RNAseq.npy', 'Data/hs.npy', 250)
+    error_rna_seq = perform_nmf('Data/preprocessed_RNAseq.npy', 'Data/hs_RNAseq.npy', 250)
     error_dna_meth = perform_nmf('Data/preprocessed_methylation.npy', 'Data/hs_methylation.npy', 200)

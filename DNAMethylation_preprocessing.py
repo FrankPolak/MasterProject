@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 
 # Load methylation data and annotation data
-methylation_data = pd.read_csv('Data/cancer_data_BRCA_Methylation_methyl450-20160128.csv', index_col=0)
-annotation = pd.read_csv("Data/450k_annotation.csv")
+methylation_data = pd.read_csv('../Data/raw/cancer_data_BRCA_Methylation_methyl450-20160128.csv', index_col=0)
+annotation = pd.read_csv("../Data/450k_annotation.csv")
 
 # Reset index to prepare for merging
 methylation_data = methylation_data.reset_index()
@@ -62,4 +62,4 @@ filtered_df_pd = pd.DataFrame(
     columns=merged_data.columns,  # Column names from original data
     index=filtered_df[:, 0]  # Gene names as row index
 )
-filtered_df_pd.to_csv('Data/preprocessed_methylation_df.csv')
+filtered_df_pd.to_csv('Data/preprocessed_methylation.csv')
